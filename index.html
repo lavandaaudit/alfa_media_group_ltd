@@ -3,188 +3,1526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Branding & Merch Production Platform</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Alfa Media Group — Event Branding & Merch Production Platform</title>
+    <meta name="description" content="B2B merch production platform for European events, corporate HR, marketing agencies and packaging. Live kit builder with real-time pricing.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; cursor: default; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --gold: #E8C547;
+            --gold-light: #F5D76E;
+            --black: #0A0A0A;
+            --white: #FAFAFA;
+            --gray-100: #F2F2F0;
+            --gray-200: #E4E4E0;
+            --gray-400: #9A9A96;
+            --gray-600: #5A5A57;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-precise: cubic-bezier(0.4, 0, 0.2, 1);
+            --t-fast: 150ms;
+            --t-med: 220ms;
+            --t-slow: 350ms;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── TYPOGRAPHY ── */
         .font-display { font-family: 'Outfit', sans-serif; }
-        .alfa-gold { color: #FFD700; }
-        .bg-alfa-gold { background-color: #FFD700; }
-        .selection-gold::selection { background: #FFD700; color: black; }
-        
-        .btn-primary {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: #FFD700;
-            color: black;
+        .label {
+            font-size: 9px;
             font-weight: 700;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
+        }
+        .h-hero {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(3.2rem, 9vw, 7.5rem);
+            font-weight: 900;
+            line-height: 0.88;
+            letter-spacing: -0.04em;
+        }
+        .h-section {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.0;
+        }
+
+        /* ── UTILS ── */
+        .gold { color: var(--gold); }
+        .bg-gold { background: var(--gold); }
+        .container { max-width: 1360px; margin: 0 auto; padding: 0 40px; }
+
+        /* ── SELECTION ── */
+        ::selection { background: var(--gold); color: var(--black); }
+
+        /* ── NAV ── */
+        #nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            background: rgba(250,250,250,0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--gray-200);
+            transition: box-shadow var(--t-med) var(--ease-precise);
+        }
+        #nav.scrolled { box-shadow: 0 4px 40px rgba(0,0,0,0.06); }
+        #nav .inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .nav-brand-line {
+            width: 3px;
+            height: 32px;
+            background: var(--gold);
+        }
+        .nav-brand-text {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            line-height: 1.5;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--black);
+            text-decoration: none;
+            transition: color var(--t-fast) var(--ease-precise);
+        }
+        .nav-links a:hover { color: var(--gold); }
+
+        .lang-toggle {
+            display: flex;
+            background: var(--gray-100);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .lang-btn {
+            padding: 6px 12px;
+            font-size: 9px;
+            font-weight: 700;
             letter-spacing: 0.1em;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all var(--t-fast) var(--ease-precise);
+            color: var(--gray-400);
+        }
+        .lang-btn.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all var(--t-med) var(--ease-precise);
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: var(--black);
         }
         .btn-primary:hover {
-            background: black;
-            color: #FFD700;
+            background: var(--black);
+            color: var(--gold);
         }
-        
         .btn-outline {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border: 2px solid black;
-            color: black;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
+            background: transparent;
+            color: var(--black);
+            border: 1.5px solid var(--black);
         }
         .btn-outline:hover {
-            background: black;
-            color: white;
+            background: var(--black);
+            color: var(--white);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--white);
+            border: 1.5px solid rgba(255,255,255,0.3);
+        }
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
         }
 
-        .h1 {
-            font-size: clamp(3rem, 10vw, 7.5rem);
-            font-weight: 700;
-            line-height: 0.9;
-            letter-spacing: -0.05em;
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            padding: 140px 0 80px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
         }
+        .hero-left { display: flex; flex-direction: column; gap: 40px; }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tag-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+        .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fadeInUp 0.8s ease forwards; }
-
-        .logo-massive {
-            height: 320px; /* Colossal scale */
+        .hero-logo {
+            max-height: 280px;
             width: auto;
             object-fit: contain;
             mix-blend-mode: multiply;
+            margin-bottom: 8px;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+        .hero-image-wrap {
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: var(--gray-100);
+            box-shadow: 0 60px 120px -20px rgba(0,0,0,0.18);
+        }
+        .hero-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s var(--ease-out);
+        }
+        .hero-image-wrap:hover img { transform: scale(1.04); }
+
+        .hero-badge {
+            position: absolute;
+            bottom: -28px;
+            left: -28px;
+            background: var(--black);
+            color: var(--white);
+            padding: 28px;
+            max-width: 240px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        .hero-badge-label { color: var(--gold); margin-bottom: 6px; }
+        .hero-badge h3 { font-size: 13px; font-weight: 700; line-height: 1.4; }
+
+        /* ── STAT TICKER ── */
+        .stat-bar {
+            background: var(--black);
+            padding: 20px 0;
+            overflow: hidden;
+        }
+        .ticker-track {
+            display: flex;
+            gap: 80px;
+            animation: ticker 30s linear infinite;
+        }
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            white-space: nowrap;
+            color: var(--gray-400);
+        }
+        .ticker-item strong { color: var(--gold); font-family: 'Outfit',sans-serif; font-size: 22px; font-weight: 700; }
+        .ticker-item span { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+        .ticker-sep { color: var(--gray-600); font-size: 20px; }
+        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* ── INDUSTRIES ── */
+        #industries { padding: 120px 0; }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 64px;
+        }
+        .section-header-left { display: flex; flex-direction: column; gap: 16px; }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+        .industry-card {
+            position: relative;
+            background: var(--gray-100);
+            padding: 40px 32px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: background var(--t-med) var(--ease-precise);
+        }
+        .industry-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--t-med) var(--ease-precise);
+        }
+        .industry-card:hover::before { transform: scaleX(1); }
+        .industry-card:hover { background: var(--white); }
+
+        .industry-num {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray-400);
+            letter-spacing: 0.1em;
+            margin-bottom: 32px;
+        }
+        .industry-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .industry-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .industry-desc {
+            font-size: 13px;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .industry-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .industry-tag {
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* ── KIT BUILDER ── */
+        #builder {
+            padding: 120px 0;
+            background: var(--black);
+        }
+        .builder-header { text-align: center; margin-bottom: 64px; }
+        .builder-header .h-section { color: var(--white); }
+        .builder-header p { color: var(--gray-400); margin-top: 16px; font-size: 15px; }
+
+        .builder-canvas {
+            display: grid;
+            grid-template-columns: 260px 1fr 300px;
+            gap: 2px;
+            min-height: 600px;
+            background: #111;
+        }
+
+        /* Catalog */
+        .catalog-panel {
+            background: #161616;
+            padding: 28px 24px;
+            overflow-y: auto;
+        }
+        .panel-label {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .panel-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #2a2a2a;
+        }
+        .catalog-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 2px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            transition: all var(--t-fast) var(--ease-precise);
+            border: 1.5px solid transparent;
+        }
+        .catalog-item:hover { background: #1e1e1e; }
+        .catalog-item.active {
+            background: #1e1e1e;
+            border-color: var(--gold);
+        }
+        .catalog-item-icon {
+            width: 36px;
+            height: 36px;
+            background: #252525;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .catalog-item-info { flex: 1; min-width: 0; }
+        .catalog-item-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 2px;
+        }
+        .catalog-item-price {
+            font-size: 10px;
+            color: var(--gray-400);
+        }
+        .catalog-item-add {
+            width: 24px;
+            height: 24px;
+            border: 1.5px solid #333;
+            background: transparent;
+            color: var(--gray-400);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--t-fast) var(--ease-precise);
+            flex-shrink: 0;
+            border-radius: 2px;
+        }
+        .catalog-item-add:hover { border-color: var(--gold); color: var(--gold); }
+        .catalog-item.active .catalog-item-add {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        /* Kit Board */
+        .kit-panel {
+            background: #0e0e0e;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+        }
+        .kit-inner {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 16px;
+            min-height: 400px;
+            padding: 24px;
+            border: 1px dashed #222;
+            margin: 0 0 24px;
+            position: relative;
+        }
+        .kit-empty-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #333;
+            pointer-events: none;
+            transition: opacity var(--t-med);
+        }
+        .kit-empty-hint .hint-icon { font-size: 40px; display: block; margin-bottom: 12px; }
+        .kit-empty-hint p { font-size: 12px; line-height: 1.5; }
+
+        .kit-item {
+            position: relative;
+            width: 120px;
+            background: #1a1a1a;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--t-med) var(--ease-precise);
+            border: 1.5px solid #252525;
+            animation: kitItemIn 200ms var(--ease-out) both;
+        }
+        @keyframes kitItemIn {
+            from { opacity: 0; transform: scale(0.85) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .kit-item:hover { border-color: #ff4444; }
+        .kit-item-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+        .kit-item-name { font-size: 10px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+        .kit-item-qty { font-size: 9px; color: var(--gold); font-weight: 600; }
+        .kit-item-remove {
+            position: absolute;
+            top: -6px; right: -6px;
+            width: 18px; height: 18px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--t-fast);
+        }
+        .kit-item:hover .kit-item-remove { opacity: 1; }
+
+        .kit-preset-row {
+            display: flex;
+            gap: 8px;
+        }
+        .kit-preset-btn {
+            flex: 1;
+            padding: 10px;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            color: var(--gray-400);
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--t-fast) var(--ease-precise);
+        }
+        .kit-preset-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Pricing Panel */
+        .pricing-panel {
+            background: #161616;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .qty-row {
+            display: flex;
+            gap: 6px;
+        }
+        .qty-btn {
+            flex: 1;
+            padding: 10px 4px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            background: #111;
+            border: 1.5px solid #2a2a2a;
+            color: var(--gray-400);
+            cursor: pointer;
+            transition: all var(--t-fast) var(--ease-precise);
+        }
+        .qty-btn:hover { border-color: #444; color: var(--white); }
+        .qty-btn.active { border-color: var(--gold); background: var(--gold); color: var(--black); }
+
+        .qty-custom-wrap {
+            display: flex;
+            align-items: center;
+            background: #111;
+            border: 1.5px solid #2a2a2a;
+            transition: border-color var(--t-fast);
+        }
+        .qty-custom-wrap:focus-within { border-color: var(--gold); }
+        .qty-custom-label { font-size: 9px; font-weight: 600; color: var(--gray-600); padding: 0 10px; letter-spacing: 0.08em; }
+        .qty-custom-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 10px;
+            text-align: right;
+            outline: none;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .price-divider { height: 1px; background: #1e1e1e; }
+
+        .price-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .price-label { font-size: 10px; color: var(--gray-400); font-weight: 500; }
+        .price-value { font-size: 14px; font-weight: 700; color: var(--white); font-family: 'Outfit', sans-serif; }
+        .price-total-line .price-label { color: var(--gray-200); font-size: 11px; font-weight: 600; }
+        .price-total-line .price-value { font-size: 26px; color: var(--gold); }
+
+        .delivery-badge {
+            background: #1a2a1a;
+            border: 1px solid #2a3a2a;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .delivery-icon { font-size: 18px; }
+        .delivery-text { font-size: 10px; color: #5a8a5a; font-weight: 600; line-height: 1.5; }
+
+        .action-stack { display: flex; flex-direction: column; gap: 8px; }
+        .action-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--t-med) var(--ease-precise);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .action-btn-primary { background: var(--gold); color: var(--black); }
+        .action-btn-primary:hover { background: #fff; }
+        .action-btn-secondary {
+            background: transparent;
+            border: 1.5px solid #2a2a2a;
+            color: var(--gray-400);
+        }
+        .action-btn-secondary:hover { border-color: var(--gray-400); color: var(--white); }
+
+        /* ── PRODUCTION SECTION ── */
+        #production { padding: 120px 0; background: var(--white); }
+        .prod-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .prod-img {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.12);
+        }
+        .prod-content { display: flex; flex-direction: column; gap: 32px; }
+        .prod-features { display: flex; flex-direction: column; gap: 20px; }
+        .prod-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .prod-feature:last-child { border-bottom: none; padding-bottom: 0; }
+        .prod-feature-line {
+            width: 3px;
+            height: 40px;
+            background: var(--gold);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+        .prod-feature-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.02em; }
+        .prod-feature-desc { font-size: 12px; color: var(--gray-600); line-height: 1.6; }
+
+        /* ── NUMBERS ── */
+        #numbers {
+            padding: 80px 0;
+            background: var(--black);
+        }
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+        .number-card {
+            padding: 48px 40px;
+            background: #111;
+            text-align: center;
+        }
+        .number-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        .number-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--gray-400);
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        /* ── CONTACT ── */
+        #contact { padding: 120px 0; background: var(--gray-100); }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+        .contact-left { display: flex; flex-direction: column; gap: 32px; }
+        .contact-offices { display: flex; flex-direction: column; gap: 16px; }
+        .contact-office {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background: var(--white);
+        }
+        .office-dot {
+            width: 8px; height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .office-name { font-size: 12px; font-weight: 700; }
+        .office-detail { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+
+        .contact-form { display: flex; flex-direction: column; gap: 16px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-label {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+            display: block;
+        }
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--white);
+            border: 1.5px solid transparent;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--black);
+            outline: none;
+            transition: border-color var(--t-fast) var(--ease-precise);
+        }
+        .form-input:focus { border-color: var(--gold); }
+        .form-input::placeholder { color: var(--gray-400); }
+        textarea.form-input { resize: vertical; min-height: 100px; }
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--white);
+            border: 1.5px solid transparent;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--black);
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        .select-wrap { position: relative; }
+        .select-wrap::after {
+            content: '↓';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--gray-400);
+            pointer-events: none;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--black);
+            padding: 60px 0 40px;
+        }
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #1e1e1e;
+            margin-bottom: 40px;
+        }
+        .footer-logo { height: 56px; opacity: 0.5; mix-blend-mode: screen; }
+        .footer-tagline {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            margin-top: 12px;
+        }
+        .footer-nav { display: flex; gap: 32px; flex-wrap: wrap; }
+        .footer-nav a {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            text-decoration: none;
+            transition: color var(--t-fast);
+        }
+        .footer-nav a:hover { color: var(--gold); }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-copy { font-size: 10px; color: #333; }
+        .footer-locations { font-size: 10px; color: #333; letter-spacing: 0.1em; }
+
+        /* ── SCROLL ANIMATIONS ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 100ms; }
+        .reveal-delay-2 { transition-delay: 200ms; }
+        .reveal-delay-3 { transition-delay: 300ms; }
+        .reveal-delay-4 { transition-delay: 400ms; }
+
+        /* ── NOTIFICATION ── */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--black);
+            color: var(--white);
+            padding: 16px 24px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all var(--t-med) var(--ease-out);
+            max-width: 300px;
+            border-left: 3px solid var(--gold);
+        }
+        .toast.show { opacity: 1; transform: translateY(0); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+            .builder-canvas { grid-template-columns: 220px 1fr 260px; }
+        }
+        @media (max-width: 900px) {
+            .hero-grid, .prod-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+            .industries-grid { grid-template-columns: 1fr 1fr; }
+            .numbers-grid { grid-template-columns: 1fr 1fr; }
+            .builder-canvas { grid-template-columns: 1fr; }
+            .container { padding: 0 24px; }
+            nav.nav-links { display: none; }
+            .hero-badge { display: none; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+        }
+        @media (max-width: 600px) {
+            .industries-grid { grid-template-columns: 1fr; }
+            .numbers-grid { grid-template-columns: 1fr 1fr; }
+            .form-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="selection-gold text-black bg-white overflow-x-hidden">
+<body>
 
-    <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-nav py-5 border-b border-gray-100 shadow-sm">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center">
-                <span class="font-bold text-sm tracking-tight uppercase font-display border-l-4 border-alfa-gold pl-4">
-                    Event Branding & <br> Merch Production Platform
-                </span>
+<!-- ── NAVIGATION ── -->
+<header id="nav">
+    <div class="container inner">
+        <div class="nav-brand">
+            <div class="nav-brand-line"></div>
+            <div class="nav-brand-text">Event Branding &<br>Merch Production Platform</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#industries">Industries</a></li>
+            <li><a href="#builder">Kit Builder</a></li>
+            <li><a href="#production">Production</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+                <div class="lang-toggle">
+                    <button class="lang-btn active" id="lang-en">EN</button>
+                    <button class="lang-btn" id="lang-ua">UA</button>
+                </div>
+            </li>
+            <li><a href="#contact" class="btn btn-primary" style="padding:10px 20px;">Get Quote</a></li>
+        </ul>
+    </div>
+</header>
+
+<!-- ── HERO ── -->
+<section id="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <img src="assets/logo.png" alt="Alfa Media Group" class="hero-logo reveal">
+                <div class="reveal reveal-delay-1">
+                    <div class="hero-tag" style="margin-bottom:20px;">
+                        <div class="tag-dot"></div>
+                        <span class="label">Official Production Partner • EU Certified</span>
+                    </div>
+                    <h1 class="h-hero font-display">
+                        High-End<br>
+                        <em class="gold" style="font-style:normal;">Production</em><br>
+                        Platform
+                    </h1>
+                </div>
+                <p class="reveal reveal-delay-2" style="font-size:17px;color:var(--gray-600);max-width:440px;line-height:1.65;font-weight:300;">
+                    Precision manufacturing meets intelligent B2B tooling. Build your branded merch kit, calculate pricing in real time, and deploy at scale.
+                </p>
+                <div class="hero-cta reveal reveal-delay-3">
+                    <a href="#builder" class="btn btn-primary">Open Kit Builder</a>
+                    <a href="#industries" class="btn btn-outline">View Industries</a>
+                </div>
             </div>
-            <nav class="hidden lg:flex items-center gap-8">
-                <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-alfa-gold transition-colors">Services</a>
-                <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-alfa-gold transition-colors">Industries</a>
-                <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-alfa-gold transition-colors">Portfolio</a>
-                <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-alfa-gold transition-colors">About</a>
-                <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-alfa-gold transition-colors">Builder</a>
-                
-                <!-- Language Switcher -->
-                <div class="flex items-center bg-gray-100 p-1 rounded-none ml-4">
-                    <button class="px-3 py-1 text-[9px] font-bold bg-white shadow-sm">EN</button>
-                    <button class="px-3 py-1 text-[9px] font-bold opacity-40 hover:opacity-100 transition-opacity">UA</button>
+            <div class="hero-visual reveal reveal-delay-2">
+                <div class="hero-image-wrap">
+                    <img src="assets/hero.png" alt="Merchandise Production">
+                </div>
+                <div class="hero-badge">
+                    <p class="label hero-badge-label">Scale of Operations</p>
+                    <h3>Supporting Global Operations from Kyiv & Warsaw.</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── STAT TICKER ── -->
+<div class="stat-bar">
+    <div style="overflow:hidden;">
+        <div class="ticker-track" id="ticker">
+            <div class="ticker-item"><strong>10,000+</strong><span>Kits Delivered</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>48h</strong><span>Express Production</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>12</strong><span>EU Markets Served</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>98.4%</strong><span>On-Time Delivery</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>4</strong><span>Production Hubs</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>ISO</strong><span>Quality Certified</span></div>
+            <div class="ticker-sep">—</div>
+            <!-- duplicate for seamless loop -->
+            <div class="ticker-item"><strong>10,000+</strong><span>Kits Delivered</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>48h</strong><span>Express Production</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>12</strong><span>EU Markets Served</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>98.4%</strong><span>On-Time Delivery</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>4</strong><span>Production Hubs</span></div>
+            <div class="ticker-sep">—</div>
+            <div class="ticker-item"><strong>ISO</strong><span>Quality Certified</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ── INDUSTRIES ── -->
+<section id="industries">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-header-left">
+                <span class="label gold">Platform Segments</span>
+                <h2 class="h-section">Four Core<br>Industries</h2>
+            </div>
+            <p style="max-width:320px;font-size:13px;color:var(--gray-600);line-height:1.7;text-align:right;">
+                We don't build catalogues. We build <em>platforms</em> — tailored by vertical, priced by logic, delivered on schedule.
+            </p>
+        </div>
+
+        <div class="industries-grid">
+            <div class="industry-card reveal" data-preset="events">
+                <div class="industry-num">01</div>
+                <span class="industry-icon">🎪</span>
+                <h3 class="industry-title">Events &<br>Conferences</h3>
+                <p class="industry-desc">Complete branded kits for summits, expos and large-scale corporate events across Europe.</p>
+                <div class="industry-tags">
+                    <span class="industry-tag">Badge</span>
+                    <span class="industry-tag">Lanyard</span>
+                    <span class="industry-tag">Bag</span>
+                    <span class="industry-tag">Notebook</span>
+                </div>
+            </div>
+            <div class="industry-card reveal reveal-delay-1" data-preset="corporate">
+                <div class="industry-num">02</div>
+                <span class="industry-icon">🏢</span>
+                <h3 class="industry-title">Corporate<br>& HR</h3>
+                <p class="industry-desc">Onboarding welcome kits, premium gifting programs and team identity merchandise.</p>
+                <div class="industry-tags">
+                    <span class="industry-tag">Welcome Kit</span>
+                    <span class="industry-tag">Gift Box</span>
+                    <span class="industry-tag">Pen</span>
+                </div>
+            </div>
+            <div class="industry-card reveal reveal-delay-2" data-preset="marketing">
+                <div class="industry-num">03</div>
+                <span class="industry-icon">📣</span>
+                <h3 class="industry-title">Marketing<br>& Agencies</h3>
+                <p class="industry-desc">Promotional campaign runs for creative studios, media agencies and brand launches.</p>
+                <div class="industry-tags">
+                    <span class="industry-tag">Flyer</span>
+                    <span class="industry-tag">Roll-up</span>
+                    <span class="industry-tag">T-Shirt</span>
+                </div>
+            </div>
+            <div class="industry-card reveal reveal-delay-3" data-preset="packaging">
+                <div class="industry-num">04</div>
+                <span class="industry-icon">📦</span>
+                <h3 class="industry-title">Packaging<br>& E-commerce</h3>
+                <p class="industry-desc">Custom delivery branding: boxes, tape, inserts and unboxing experience design.</p>
+                <div class="industry-tags">
+                    <span class="industry-tag">Box</span>
+                    <span class="industry-tag">Insert</span>
+                    <span class="industry-tag">Tissue</span>
+                    <span class="industry-tag">Sticker</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── KIT BUILDER ── -->
+<section id="builder">
+    <div class="container">
+        <div class="builder-header reveal">
+            <span class="label" style="color:var(--gold);">Canvas Kit Builder — Live Configurator</span>
+            <h2 class="h-section" style="color:#fff;margin-top:12px;">Build Your Kit.</h2>
+            <p>Select products on the left. Watch your kit assemble. See pricing update in real time.</p>
+        </div>
+
+        <div class="builder-canvas reveal reveal-delay-1">
+            <!-- CATALOG -->
+            <div class="catalog-panel">
+                <div class="panel-label">Catalog</div>
+                <div id="catalog-list">
+                    <!-- JS-rendered -->
+                </div>
+            </div>
+
+            <!-- KIT STAGE -->
+            <div class="kit-panel">
+                <div class="panel-label">Kit Preview</div>
+                <div class="kit-inner" id="kit-stage">
+                    <div class="kit-empty-hint" id="kit-hint">
+                        <span class="hint-icon">🧩</span>
+                        <p>Click products<br>to build your kit</p>
+                    </div>
+                </div>
+                <div class="kit-preset-row">
+                    <button class="kit-preset-btn" onclick="loadPreset('events')">⚡ Event Kit</button>
+                    <button class="kit-preset-btn" onclick="loadPreset('corporate')">🏢 HR Kit</button>
+                    <button class="kit-preset-btn" onclick="loadPreset('marketing')">📣 Agency Kit</button>
+                    <button class="kit-preset-btn" onclick="clearKit()">✕ Clear</button>
+                </div>
+            </div>
+
+            <!-- PRICING -->
+            <div class="pricing-panel">
+                <div class="panel-label">Live Pricing</div>
+
+                <div>
+                    <div class="label" style="color:var(--gray-400);margin-bottom:10px;">Quantity</div>
+                    <div class="qty-row" style="margin-bottom:8px;">
+                        <button class="qty-btn" data-qty="50" onclick="setQty(50,this)">50</button>
+                        <button class="qty-btn active" data-qty="100" onclick="setQty(100,this)">100</button>
+                        <button class="qty-btn" data-qty="200" onclick="setQty(200,this)">200</button>
+                        <button class="qty-btn" data-qty="500" onclick="setQty(500,this)">500</button>
+                    </div>
+                    <div class="qty-custom-wrap">
+                        <span class="qty-custom-label">Custom</span>
+                        <input type="number" class="qty-custom-input" id="qty-custom" placeholder="0" min="1" oninput="setCustomQty(this.value)">
+                    </div>
                 </div>
 
-                <a href="#" class="btn-primary !py-2 !px-6 !text-[9px]">Contact</a>
+                <div class="price-divider"></div>
+
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <div class="price-line">
+                        <span class="price-label">Items in kit</span>
+                        <span class="price-value" id="p-items">0</span>
+                    </div>
+                    <div class="price-line">
+                        <span class="price-label">Base per unit</span>
+                        <span class="price-value" id="p-unit">€0.00</span>
+                    </div>
+                    <div class="price-line">
+                        <span class="price-label">Vol. discount</span>
+                        <span class="price-value" style="color:#5a8a5a;" id="p-discount">−0%</span>
+                    </div>
+                </div>
+
+                <div class="price-divider"></div>
+
+                <div class="price-line price-total-line">
+                    <div>
+                        <div class="price-label">Total Est.</div>
+                        <div style="font-size:9px;color:var(--gray-600);margin-top:4px;">excl. VAT & shipping</div>
+                    </div>
+                    <span class="price-value" id="p-total">€0</span>
+                </div>
+
+                <div class="delivery-badge">
+                    <span class="delivery-icon">🚚</span>
+                    <div class="delivery-text" id="p-delivery">Add items to estimate delivery.</div>
+                </div>
+
+                <div class="action-stack">
+                    <button class="action-btn action-btn-primary" onclick="showToast('📋 Quote request generated! Our team will contact you within 2 hours.')">
+                        ✉ Request Quote
+                    </button>
+                    <button class="action-btn action-btn-secondary" onclick="showToast('📄 Generating PDF specification...')">
+                        ↓ Generate PDF
+                    </button>
+                    <button class="action-btn action-btn-secondary" onclick="showToast('💾 Kit saved to your session.')">
+                        ⊕ Save Kit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── PRODUCTION EXCELLENCE ── -->
+<section id="production">
+    <div class="container">
+        <div class="prod-grid">
+            <img src="assets/factory.png" alt="Production Facility" class="prod-img reveal">
+            <div class="prod-content">
+                <div class="reveal">
+                    <span class="label gold">Manufacturing Hub</span>
+                    <h2 class="h-section" style="margin-top:12px;">Industrial<br>Excellence</h2>
+                </div>
+                <div class="prod-features reveal reveal-delay-1">
+                    <div class="prod-feature">
+                        <div class="prod-feature-line"></div>
+                        <div>
+                            <div class="prod-feature-title">24/7 Production Cycle</div>
+                            <div class="prod-feature-desc">Round-the-clock operations ensure your deadlines are met regardless of order volume or complexity.</div>
+                        </div>
+                    </div>
+                    <div class="prod-feature">
+                        <div class="prod-feature-line"></div>
+                        <div>
+                            <div class="prod-feature-title">International Quality Certification</div>
+                            <div class="prod-feature-desc">ISO-certified processes, European material standards, and independent QC at every production stage.</div>
+                        </div>
+                    </div>
+                    <div class="prod-feature">
+                        <div class="prod-feature-line"></div>
+                        <div>
+                            <div class="prod-feature-title">Real Production. Real Team.</div>
+                            <div class="prod-feature-desc">70% of our content comes from our actual Ukrainian facility — machines, materials, people. Not AI stock.</div>
+                        </div>
+                    </div>
+                    <div class="prod-feature">
+                        <div class="prod-feature-line"></div>
+                        <div>
+                            <div class="prod-feature-title">Sustainable Material Sourcing</div>
+                            <div class="prod-feature-desc">FSC-certified paper, recycled fabrics, water-based inks. Carbon footprint reporting available on request.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── NUMBERS ── -->
+<section id="numbers">
+    <div class="container">
+        <div class="numbers-grid">
+            <div class="number-card reveal">
+                <div class="number-val">12+</div>
+                <div class="number-label">EU Markets</div>
+            </div>
+            <div class="number-card reveal reveal-delay-1">
+                <div class="number-val">48h</div>
+                <div class="number-label">Express Lead Time</div>
+            </div>
+            <div class="number-card reveal reveal-delay-2">
+                <div class="number-val">98%</div>
+                <div class="number-label">On-Time Rate</div>
+            </div>
+            <div class="number-card reveal reveal-delay-3">
+                <div class="number-val">10K+</div>
+                <div class="number-label">Kits Produced</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-header-left">
+                <span class="label gold">Get in Touch</span>
+                <h2 class="h-section">Request a<br>Production Quote</h2>
+            </div>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-left reveal">
+                <p style="font-size:15px;color:var(--gray-600);line-height:1.7;max-width:400px;">
+                    Share your project details and we'll prepare a tailored production estimate within 2 business hours.
+                </p>
+                <div class="contact-offices">
+                    <div class="contact-office">
+                        <div class="office-dot"></div>
+                        <div>
+                            <div class="office-name">Kyiv — HQ & Production</div>
+                            <div class="office-detail">Primary manufacturing facility • UA</div>
+                        </div>
+                    </div>
+                    <div class="contact-office">
+                        <div class="office-dot"></div>
+                        <div>
+                            <div class="office-name">Warsaw — EU Sales Office</div>
+                            <div class="office-detail">European logistics hub • PL</div>
+                        </div>
+                    </div>
+                    <div class="contact-office">
+                        <div class="office-dot"></div>
+                        <div>
+                            <div class="office-name">Prague • Berlin</div>
+                            <div class="office-detail">Partner distribution points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form reveal reveal-delay-1" onsubmit="handleForm(event)">
+                <div class="form-row">
+                    <div>
+                        <label class="form-label">Company Name</label>
+                        <input class="form-input" type="text" placeholder="Acme GmbH" required>
+                    </div>
+                    <div>
+                        <label class="form-label">Contact Person</label>
+                        <input class="form-input" type="text" placeholder="Jan Kowalski" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label class="form-label">Email</label>
+                        <input class="form-input" type="email" placeholder="jan@company.com" required>
+                    </div>
+                    <div>
+                        <label class="form-label">Industry</label>
+                        <div class="select-wrap">
+                            <select class="form-input form-select">
+                                <option value="">Select segment</option>
+                                <option>Events & Conferences</option>
+                                <option>Corporate & HR</option>
+                                <option>Marketing & Agencies</option>
+                                <option>Packaging & E-commerce</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label">Project Brief</label>
+                    <textarea class="form-input" placeholder="Describe your project, quantities, and timeline..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Submit Request →</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div>
+                <img src="assets/logo.png" alt="Alfa Media Group" class="footer-logo">
+                <div class="footer-tagline">Event Branding & Merch Production Platform</div>
+            </div>
+            <nav class="footer-nav">
+                <a href="#industries">Industries</a>
+                <a href="#builder">Kit Builder</a>
+                <a href="#production">Production</a>
+                <a href="#contact">Contact</a>
             </nav>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center pt-32 pb-24 overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center relative z-10">
-            <div class="space-y-16 animate-fade-in" style="animation-delay: 0.2s">
-                
-                <!-- Massive Logo -->
-                <div class="mb-8">
-                    <img src="assets/logo.png" 
-                         alt="Alfa Media Group" 
-                         class="logo-massive">
-                </div>
-
-                <div class="space-y-8">
-                    <div class="inline-block px-3 py-1 bg-alfa-gold text-[9px] font-bold uppercase tracking-[0.2em]">
-                        Official Production Partner
-                    </div>
-                    <h1 class="h1 font-display">
-                        High-End <br>
-                        <span class="alfa-gold italic">Production</span> Hub
-                    </h1>
-                    <p class="text-xl text-gray-500 max-w-lg leading-relaxed font-light">
-                        Executing visual strategy through precision manufacturing and high-impact merchandise systems.
-                    </p>
-                </div>
-                
-                <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="#" class="btn-primary">View Solutions</a>
-                    <a href="#" class="btn-outline">Merch Configurator</a>
-                </div>
-            </div>
-            
-            <div class="relative animate-fade-in" style="animation-delay: 0.4s">
-                <div class="aspect-[4/5] bg-gray-100 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] overflow-hidden group">
-                    <img src="assets/hero.png" 
-                         alt="Merchandise" class="w-full h-full object-cover grayscale-0 group-hover:scale-105 transition-transform duration-1000">
-                </div>
-                <!-- Floating Info -->
-                <div class="absolute -bottom-6 -left-6 bg-black text-white p-8 shadow-2xl max-w-[260px]">
-                    <p class="alfa-gold font-bold uppercase text-[9px] tracking-widest mb-1">Scale of Operations</p>
-                    <h3 class="text-sm font-bold leading-snug">Supporting Global Operations from Kyiv & Warsaw.</h3>
-                </div>
-            </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2026 Alfa Media Group Ltd. All Rights Reserved.</span>
+            <span class="footer-locations">Kyiv • Warsaw • Prague • Berlin</span>
         </div>
-    </section>
+    </div>
+</footer>
 
-    <!-- Production Grid Section -->
-    <section class="py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-20 items-center mb-32">
-                <div class="order-2 lg:order-1">
-                    <img src="assets/factory.png" 
-                         alt="Facility" class="w-full aspect-video object-cover shadow-2xl">
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // ── PRODUCTS SCHEMA (JSON) ──
+    const PRODUCTS = [
+        { id: 'badge',    name: 'Event Badge',   icon: '🏷️',  basePrice: 0.80, category: 'events' },
+        { id: 'lanyard',  name: 'Lanyard',        icon: '🎗️',  basePrice: 1.20, category: 'events' },
+        { id: 'bag',      name: 'Tote Bag',       icon: '👜',  basePrice: 2.50, category: 'events' },
+        { id: 'notebook', name: 'Notebook',       icon: '📓',  basePrice: 3.80, category: 'corporate' },
+        { id: 'pen',      name: 'Metal Pen',      icon: '🖊️',  basePrice: 1.10, category: 'corporate' },
+        { id: 'box',      name: 'Gift Box',       icon: '🎁',  basePrice: 4.20, category: 'corporate' },
+        { id: 'flyer',    name: 'Flyer A5',       icon: '📄',  basePrice: 0.15, category: 'marketing' },
+        { id: 'rollup',   name: 'Roll-Up Banner', icon: '🚩',  basePrice: 28.0, category: 'marketing' },
+        { id: 'tshirt',   name: 'T-Shirt',        icon: '👕',  basePrice: 8.50, category: 'marketing' },
+        { id: 'sticker',  name: 'Sticker Pack',   icon: '🔖',  basePrice: 0.40, category: 'packaging' },
+        { id: 'pkgbox',   name: 'Ship Box',       icon: '📦',  basePrice: 1.90, category: 'packaging' },
+        { id: 'insert',   name: 'Box Insert',     icon: '📋',  basePrice: 0.30, category: 'packaging' },
+    ];
+
+    // Kit Presets
+    const PRESETS = {
+        events:    ['badge', 'lanyard', 'bag', 'notebook', 'pen'],
+        corporate: ['box', 'notebook', 'pen', 'sticker'],
+        marketing: ['flyer', 'tshirt', 'rollup'],
+        packaging: ['pkgbox', 'insert', 'sticker'],
+    };
+
+    // Volume discount tiers
+    const DISCOUNTS = [
+        { min: 500, pct: 0.20 },
+        { min: 200, pct: 0.12 },
+        { min: 100, pct: 0.06 },
+        { min:  50, pct: 0.03 },
+        { min:   1, pct: 0.00 },
+    ];
+
+    // ── STATE ──
+    let kit = new Set();
+    let qty = 100;
+
+    // ── RENDER CATALOG ──
+    function renderCatalog() {
+        const list = document.getElementById('catalog-list');
+        list.innerHTML = PRODUCTS.map(p => `
+            <div class="catalog-item ${kit.has(p.id) ? 'active' : ''}"
+                 id="cat-${p.id}"
+                 onclick="toggleItem('${p.id}')">
+                <div class="catalog-item-icon">${p.icon}</div>
+                <div class="catalog-item-info">
+                    <div class="catalog-item-name">${p.name}</div>
+                    <div class="catalog-item-price">from €${p.basePrice.toFixed(2)}/unit</div>
                 </div>
-                <div class="space-y-8 order-1 lg:order-2">
-                    <h2 class="text-5xl font-bold font-display tracking-tight">Industrial Excellence</h2>
-                    <p class="text-gray-500 leading-relaxed font-light">From small-scale precision digital runs to mass offset production, our facility is engineered for speed and absolute quality control.</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-center gap-3 text-xs font-bold uppercase tracking-widest">
-                            <div class="w-4 h-[2px] bg-alfa-gold"></div> 24/7 Production Cycle
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-bold uppercase tracking-widest">
-                            <div class="w-4 h-[2px] bg-alfa-gold"></div> International Quality Certification
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-bold uppercase tracking-widest">
-                            <div class="w-4 h-[2px] bg-alfa-gold"></div> Sustainable Material Sourcing
-                        </li>
-                    </ul>
-                </div>
+                <button class="catalog-item-add" title="${kit.has(p.id) ? 'Remove' : 'Add'}">
+                    ${kit.has(p.id) ? '✓' : '+'}
+                </button>
             </div>
-        </div>
-    </section>
+        `).join('');
+    }
 
-    <!-- Footer -->
-    <footer class="bg-gray-50 border-t border-gray-100 py-20 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex flex-col items-center md:items-start gap-6">
-                <img src="assets/logo.png" 
-                     class="h-20 mix-blend-multiply opacity-60">
-                <p class="text-[9px] uppercase font-bold tracking-[0.2em] text-gray-400">Event Branding & Merch Production Platform</p>
-            </div>
-            <div class="text-center md:text-right">
-                 <p class="text-[9px] uppercase font-bold tracking-[0.2em] text-gray-400">&copy; 2026 Alfa Media Group Ltd. All Rights Reserved.</p>
-                 <p class="text-[8px] uppercase tracking-[0.1em] text-gray-400 mt-2">Kyiv • Warsaw • Prague • Berlin</p>
-            </div>
-        </div>
-    </footer>
+    // ── RENDER KIT STAGE ──
+    function renderKit() {
+        const stage = document.getElementById('kit-stage');
+        const hint = document.getElementById('kit-hint');
+        hint.style.opacity = kit.size === 0 ? '1' : '0';
 
+        // Remove old items
+        [...stage.querySelectorAll('.kit-item')].forEach(el => el.remove());
+
+        kit.forEach(id => {
+            const p = PRODUCTS.find(x => x.id === id);
+            if (!p) return;
+            const el = document.createElement('div');
+            el.className = 'kit-item';
+            el.innerHTML = `
+                <button class="kit-item-remove" onclick="removeItem('${p.id}',event)">✕</button>
+                <span class="kit-item-icon">${p.icon}</span>
+                <div class="kit-item-name">${p.name}</div>
+                <div class="kit-item-qty">×${qty}</div>
+            `;
+            stage.appendChild(el);
+        });
+    }
+
+    // ── PRICING ENGINE ──
+    function calcPrice() {
+        const basePerUnit = [...kit].reduce((sum, id) => {
+            const p = PRODUCTS.find(x => x.id === id);
+            return sum + (p ? p.basePrice : 0);
+        }, 0);
+
+        const disc = DISCOUNTS.find(d => qty >= d.min) || DISCOUNTS[DISCOUNTS.length - 1];
+        const discounted = basePerUnit * (1 - disc.pct);
+        const total = discounted * qty;
+
+        document.getElementById('p-items').textContent = kit.size;
+        document.getElementById('p-unit').textContent = `€${discounted.toFixed(2)}`;
+        document.getElementById('p-discount').textContent = disc.pct > 0 ? `−${(disc.pct*100).toFixed(0)}%` : '−0%';
+        document.getElementById('p-total').textContent = kit.size > 0 ? `€${Math.round(total).toLocaleString()}` : '€0';
+
+        // Delivery estimate
+        const del = document.getElementById('p-delivery');
+        if (kit.size === 0) {
+            del.textContent = 'Add items to estimate delivery.';
+        } else if (qty <= 100) {
+            del.textContent = `Estimated delivery: 7–10 business days (${qty} units)`;
+        } else if (qty <= 200) {
+            del.textContent = `Estimated delivery: 10–14 business days (${qty} units)`;
+        } else {
+            del.textContent = `Estimated delivery: 14–21 business days (${qty} units)`;
+        }
+    }
+
+    // ── ACTIONS ──
+    function toggleItem(id) {
+        if (kit.has(id)) {
+            kit.delete(id);
+        } else {
+            kit.add(id);
+        }
+        renderCatalog();
+        renderKit();
+        calcPrice();
+    }
+
+    function removeItem(id, e) {
+        e.stopPropagation();
+        kit.delete(id);
+        renderCatalog();
+        renderKit();
+        calcPrice();
+    }
+
+    function setQty(val, btn) {
+        qty = val;
+        document.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('qty-custom').value = '';
+        renderKit();
+        calcPrice();
+    }
+
+    function setCustomQty(val) {
+        const v = parseInt(val);
+        if (v > 0) {
+            qty = v;
+            document.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('active'));
+            renderKit();
+            calcPrice();
+        }
+    }
+
+    function loadPreset(name) {
+        kit = new Set(PRESETS[name] || []);
+        renderCatalog();
+        renderKit();
+        calcPrice();
+        showToast(`✅ ${name.charAt(0).toUpperCase()+name.slice(1)} Kit loaded!`);
+    }
+
+    function clearKit() {
+        kit.clear();
+        renderCatalog();
+        renderKit();
+        calcPrice();
+    }
+
+    // Industry cards → load preset and scroll to builder
+    document.querySelectorAll('.industry-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const preset = card.dataset.preset;
+            if (preset) {
+                loadPreset(preset);
+                document.getElementById('builder').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ── TOAST ──
+    let toastTimer;
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // ── FORM ──
+    function handleForm(e) {
+        e.preventDefault();
+        showToast('✅ Request submitted! We\'ll respond within 2 hours.');
+        e.target.reset();
+    }
+
+    // ── SCROLL ANIMATIONS ──
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(el => {
+            if (el.isIntersecting) {
+                el.target.classList.add('visible');
+                observer.unobserve(el.target);
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Nav scroll state
+    window.addEventListener('scroll', () => {
+        document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Language toggle
+    document.getElementById('lang-en').addEventListener('click', function() {
+        this.classList.add('active');
+        document.getElementById('lang-ua').classList.remove('active');
+    });
+    document.getElementById('lang-ua').addEventListener('click', function() {
+        this.classList.add('active');
+        document.getElementById('lang-en').classList.remove('active');
+        showToast('🇺🇦 Українська версія — скоро! / Coming soon.');
+    });
+
+    // ── INIT ──
+    renderCatalog();
+    renderKit();
+    calcPrice();
+
+    // Auto-trigger hero reveals
+    document.querySelectorAll('#hero .reveal').forEach(el => {
+        setTimeout(() => el.classList.add('visible'), 100);
+    });
+</script>
 </body>
 </html>
