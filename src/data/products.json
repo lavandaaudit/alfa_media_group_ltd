@@ -1,0 +1,74 @@
+[
+  {
+    "id": "badges",
+    "name": "Corporate Badges",
+    "category": "Merchandise",
+    "basePrice": 2.50,
+    "tiers": [
+      { "min": 100, "discount": 0 },
+      { "min": 500, "discount": 0.15 },
+      { "min": 1000, "discount": 0.25 }
+    ],
+    "image": "https://images.unsplash.com/photo-1598914207931-2856f4bc18ca?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    "id": "lanyards",
+    "name": "Custom Lanyards",
+    "category": "Merchandise",
+    "basePrice": 1.20,
+    "tiers": [
+      { "min": 100, "discount": 0 },
+      { "min": 500, "discount": 0.10 },
+      { "min": 2000, "discount": 0.30 }
+    ],
+    "image": "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    "id": "notebooks",
+    "name": "Premium Notebooks",
+    "category": "Corporate Gifts",
+    "basePrice": 8.50,
+    "tiers": [
+      { "min": 50, "discount": 0 },
+      { "min": 200, "discount": 0.12 },
+      { "min": 500, "discount": 0.20 }
+    ],
+    "image": "https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    "id": "hoodies",
+    "name": "Premium Hoodies",
+    "category": "Apparel",
+    "basePrice": 35.00,
+    "tiers": [
+      { "min": 20, "discount": 0 },
+      { "min": 100, "discount": 0.15 },
+      { "min": 300, "discount": 0.25 }
+    ],
+    "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    "id": "mugs",
+    "name": "Ceramic Mugs",
+    "category": "Corporate Gifts",
+    "basePrice": 4.50,
+    "tiers": [
+      { "min": 50, "discount": 0 },
+      { "min": 200, "discount": 0.10 },
+      { "min": 500, "discount": 0.20 }
+    ],
+    "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcc3d1?auto=format&fit=crop&q=80&w=300"
+  },
+  {
+    "id": "flyers",
+    "name": "A5 Flyers (Full Color)",
+    "category": "Printing",
+    "basePrice": 0.15,
+    "tiers": [
+      { "min": 1000, "discount": 0 },
+      { "min": 5000, "discount": 0.20 },
+      { "min": 10000, "discount": 0.40 }
+    ],
+    "image": "https://images.unsplash.com/photo-1562564055-71e051d33c19?auto=format&fit=crop&q=80&w=300"
+  }
+]

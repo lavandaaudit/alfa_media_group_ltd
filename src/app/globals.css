@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --alfa-gold: #FFD700;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-8 py-4 bg-alfa-gold text-black font-bold rounded-none hover:bg-black hover:text-alfa-gold transition-all duration-300 uppercase tracking-widest text-sm;
+  }
+  
+  .btn-outline {
+    @apply px-8 py-4 border-2 border-black text-black font-bold rounded-none hover:bg-black hover:text-white transition-all duration-300 uppercase tracking-widest text-sm;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 py-20 lg:py-32;
+  }
+
+  .h1 {
+    @apply text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9];
+  }
+
+  .h2 {
+    @apply text-4xl md:text-5xl font-bold tracking-tight mb-8;
+  }
+}
